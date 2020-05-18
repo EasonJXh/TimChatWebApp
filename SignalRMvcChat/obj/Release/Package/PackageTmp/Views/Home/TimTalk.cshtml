@@ -1,0 +1,1003 @@
+﻿
+@{
+    ViewBag.Title = "TimChat";
+}
+<!--头部-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="shortcut icon" href="~/Content/img/favicon.ico" type="image/x-icon">
+<link href="~/Content/themes/page/iconfont.css" rel="stylesheet" />
+<link href="~/Content/themes/page/iconfont-alibaba.css" rel="stylesheet" />
+<link href="~/Content/themes/page/Timchat.css" rel="stylesheet" />
+
+
+<div class="chatContainer">
+    <!--用户名获取控件-->
+    <input type="hidden" id="displayname" />
+    <input type="hidden" id="createroom" />
+    <audio src="~/Content/img/tip.wav" preload="auto" id="tips_Music"></audio>
+    <div class="chatBtn">
+        <i class="iconfont icon-xiaoxi1"></i>
+    </div>
+    <div class="chat-message-num" id="chat-message-num-header">2</div>
+    <div class="chatBox" ref="chatBox">
+        <!--增加群组弹出页-->
+        <div class="chatBox-addGroup">
+            <div class="chatBox-addGroup-title"><label><i class="iconfont icon-shangjiaguanli"></i>&nbsp;&nbsp;&nbsp;增加群组</label></div>
+            <label class="chatBox-addGroup-name">群名:</label>
+            <div class="chatBox-addGroup-nametext" contenteditable="true">青少年华易消陨</div>
+            <label class="chatBox-addGroup-memo">群组备注:</label>
+            <div class="chatBox-addGroup-memotext" contenteditable="true">惜时珍命勤努力！</div>
+            <button class="btn-default-styles" id="chatBox-addGroup-cancel">取消</button>
+            <button class="btn-default-styles" id="chatBox-addGroup-confirm">确认</button>
+        </div>
+        <!--首页头部-->
+        <div class="chatBox-head">
+            <div class="chatBox-head-one">
+                <div id="add_Group"><i class="iconfont icon-gengduo1"></i></div>
+
+                <div id="menu_List">
+                    <i id="personal_Btn" title="私聊" class="iconfont icon-yonghuliebiao">&nbsp;&nbsp;</i>
+                    <i id="group_Btn" title="群聊" class="iconfont icon-shangjiaguanli">&nbsp;&nbsp;</i>
+                    <i id="allmessage_Btn" title="消息" class="iconfont icon-xiaoxi2"></i>
+                </div>
+                <!--首页关闭按钮-->
+                <div class="chat-close" id="chat-close-shouye"><i class="iconfont icon-jichushezhi"></i></div>
+                <div class="chat-close-menu" id="chat-close-menu-shouye">
+                    <ul>
+                        <li id="chat-close-menu-freshlist"><i class="iconfont icon-shuaxin"></i>&nbsp;&nbsp;&nbsp;刷新</li>
+                        <li id="chat-close-menu-fullscreen"><i class="iconfont icon-expand"></i>&nbsp;&nbsp;&nbsp;全屏</li>
+                        <li id="chat-close-menu-huanyuan"><i class="iconfont icon-compress-arrows-alt"></i>&nbsp;&nbsp;&nbsp;缩小</li>
+                        <li id="chat-close-menu-min"><i class="iconfont icon-minus-"></i>&nbsp;&nbsp;&nbsp;最小</li>
+                        <li id="chat-close-menu-theme"><i class="iconfont icon-yueliangwanshangyejianmoshiyejianqingxianxing"></i>&nbsp;&nbsp;&nbsp;主题</li>
+                        <li id="chat-close-menu-close"><i class="iconfont icon-tuichu"></i>&nbsp;&nbsp;&nbsp;退出</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="chatBox-head-two">
+                <div class="chat-return"><i class="iconfont icon-fanhui"></i></div>
+                <div class="chat-people">
+                    <div class="ChatInfoHead">
+                        <img src="" alt="头像" />
+                    </div>
+                    <div class="ChatInfoName">这是用户的名字，看看名字到底能有多长</div>
+                </div>
+                <div class="chat-close" id="chat-close-chat"><i class="iconfont icon-gengduo"></i></div>
+                <div class="chat-close-menu" id="chat-close-menu-chat">
+                    <ul>
+                        <li id="chat-close-menu-exit"><i class="iconfont icon-guanbi1"></i>&nbsp;&nbsp;&nbsp;退出群聊</li>
+                        <li id="chat-close-menu-save"><i class="iconfont icon-shuji"></i>&nbsp;&nbsp;&nbsp;保存聊天</li>
+                        <li id="chat-close-menu-del"><i class="iconfont icon-guanbi"></i>&nbsp;&nbsp;&nbsp;清除缓存</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="chatBox-info">
+            <!--首页列表-->
+            <div class="chatBox-list" ref="chatBoxlist">
+                @*<div class="chat-list-people">
+                        <div>
+                            <img src="~/Content/img/group1.png" alt="头像" />
+                        </div>
+                        <div class="chat-name">
+                            <p>MacI即时开放共享组</p>
+                        </div>
+                        <div class="message-num" id="message-num-header">2</div>
+                    </div>
+
+                    <div class="chat-list-people">
+                        <div>
+                            <img src="~/Content/img/group2.png" alt="头像" />
+                        </div>
+                        <div class="chat-name">
+                            <p>sinalR学习组</p>
+                        </div>
+                        <div class="message-group">&nbsp;&nbsp;加入</div>
+                    </div>
+
+                    <div class="chat-list-people">
+                        <div>
+                            <img src="~/Content/img/group3.png" alt="头像" />
+                        </div>
+                        <div class="chat-name">
+                            <p>java学习交流组</p>
+                        </div>
+                        <div class="message-group">&nbsp;&nbsp;私聊</div>
+                    </div>*@
+            </div>
+
+            <!--消息框-->
+            <div class="chatBox-kuang" ref="chatBoxkuang">
+                <!--消息展示容器-->
+                <div class="chatBox-content">
+                    <div class="chatBox-content-demo" id="chatBox-content-demo">
+                        <div class="clearfloat">
+                            <div class="author-name">
+                                <small class="chat-date">@DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")</small>
+                            </div>
+                            <div class="left">
+                                <div class="chat-avatars">
+                                    <img src="~/Content/img/iconsystem.gif" alt="头像" />
+                                </div>
+                                <div class="chat-message">
+                                    系统温馨提示：<br />
+                                    您未成功进入此房间，所以不能发送消息，请返回群列表点"加入"进入房间！
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--消息页工具栏位-->
+                <div class="chatBox-send">
+                    <div class="div-textarea" contenteditable="true"></div>
+                    <div class="chatBox-send-tool">
+                        <button id="chat-biaoqing" class="btn-default-styles">
+                            <i class="iconfont icon-biaoqing"></i>
+                        </button>
+                        <label id="chat-tuxiang" title="图片" for="inputImage" class="btn-default-styles">
+                            <input type="file" onchange="selectImg(this)" accept="image/jpg,image/jpeg,image/png" name="file" id="inputImage" class="hidden">
+                            <i class="iconfont icon-tuxiang"></i>
+                        </label>
+                        <label id="chat-jietu" title="截屏" class="btn-default-styles">
+                            <i class="iconfont icon-jiandao"></i>
+                        </label>
+                        <label id="chat-wenjian" title="文件" class="btn-default-styles">
+                            <input type="file" onchange="uploadFiles(this)" name="file" id="sendFiles" class="hidden">
+                            <i class="iconfont icon-dingdan"></i>
+                        </label>
+                        <label id="chat-mingpian" title="名片" class="btn-default-styles">
+                            <i class="iconfont icon-wode4"></i>
+                        </label>
+                        <label id="chat-dingwei" title="定位" class="btn-default-styles">
+                            <i class="iconfont icon-diquguanli"></i>
+                        </label>
+                        <button id="chat-fasong" class="btn-default-styles">
+                            <i class="iconfont icon-fasong"></i>
+                        </button>
+                    </div>
+                    <div class="biaoqing-photo">
+                        <ul>
+                            <li><span class="emoji-picker-image" style="background-position: -9px -18px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -40px -18px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -71px -18px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -102px -18px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -133px -18px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -164px -18px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -9px -52px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -40px -52px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -71px -52px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -102px -52px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -133px -52px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -164px -52px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -9px -86px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -40px -86px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -71px -86px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -102px -86px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -133px -86px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -164px -86px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -9px -120px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -40px -120px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -71px -120px;"></span></li>
+                            <li>
+                                <span class="emoji-picker-image" style="background-position: -102px -120px;"></span>
+                            </li>
+                            <li>
+                                <span class="emoji-picker-image" style="background-position: -133px -120px;"></span>
+                            </li>
+                            <li>
+                                <span class="emoji-picker-image" style="background-position: -164px -120px;"></span>
+                            </li>
+                            <li><span class="emoji-picker-image" style="background-position: -9px -154px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -40px -154px;"></span></li>
+                            <li><span class="emoji-picker-image" style="background-position: -71px -154px;"></span></li>
+                            <li>
+                                <span class="emoji-picker-image" style="background-position: -102px -154px;"></span>
+                            </li>
+                            <li>
+                                <span class="emoji-picker-image" style="background-position: -133px -154px;"></span>
+                            </li>
+                            <li>
+                                <span class="emoji-picker-image" style="background-position: -164px -154px;"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mingpian-input">
+                        <ul>
+                            <li>姓名：<input id="mingpian-input-name" class="mingpian-text" type="text" /></li>
+                            <li>电话：<input id="mingpian-input-tel" class="mingpian-text" type="text" /></li>
+                            <li>公司：<input id="mingpian-input-com" class="mingpian-text" type="text" /></li>
+                            <li><button class="btn-default-styles" id="mingpian-cancel">取消</button><button class="btn-default-styles" id="mingpian-confirm">确认</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--地图容器-->
+<div id="allmap" style="width:100%;height:0px;visibility:hidden;z-index:2"></div>
+@section scripts {
+    <script src="~/Scripts/jquery.min.js"></script>
+    <!--通信核心-->
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <!--弹出式框架-->
+    <script src="~/Scripts/layui.js"></script>
+    <!--截屏插件-->
+    <script src="~/Scripts/commonjs/html2canvas.js"></script>
+    <!--百度地图接口-->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=53oVIOgmSIejwV7EfphPgTynOZbIiVYu"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script>
+        var chat;
+        var userName;
+        var messageType;
+        var messageContent;
+        var messageCount = 0;
+        var realRoomname = "";
+        var roomName;
+        var userImage;
+        var vLocation = "";
+        var xLocation = "";
+        var yLocation = "";
+        //#region 客户端所有动作
+        //定义服务端调用的客户端sendMessage来显示消息[服务端]
+        chat = $.connection.chatRoomHub;
+        //显示错误信息
+        chat.client.showMessage = function (message) {
+            alert(message);
+        };
+        //从房间中退出
+        chat.client.removeRoom = function (data) {
+            alert(data);
+        };
+
+        //显示用户收到消息
+        chat.client.sendMessage = function (roomname, message) {
+            var uimage = message.substring(message.lastIndexOf("*") + 1);
+            var realname = message.substring(message.lastIndexOf("#") + 1, message.lastIndexOf("*"));
+            var realtype = message.substring(0, 5);
+            var realmessage = message.substring(5, message.lastIndexOf("#"));
+            $("#" + roomname).each(function () {
+                //自己的消息放居右显示
+                if (userName == realname) {
+                    if (realtype == "#doc#") {
+                        $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                            "<div class=\"author-name\"><small class=\"chat-date\">" + realname + "-" + getTime() + "</small> </div> " +
+                            "<div class=\"right\"> <div class=\"chat-message\"> " + realmessage + " </div> " +
+                            "<div class=\"chat-avatars\"><img src=\"../Content/img/icon" + uimage+".png\" alt=\"头像\" /></div> </div> </div>");
+                    }
+                    else if (realtype == "#pic#") {
+                        $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                            "<div class=\"author-name\"><small class=\"chat-date\">" + realname + "-" + getTime() + "</small > </div > " +
+                            "<div class=\"right\"> <div class=\"chat-message\"><img src=" + realmessage + "></div> " +
+                            "<div class=\"chat-avatars\"><img src=\"../Content/img/icon" + uimage + ".png\" alt=\"头像\" /></div> </div> </div>");
+                    }
+                    else {
+                        $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                            "<div class=\"author-name\"><small class=\"chat-date\">" + realname + "-" + getTime() + "</small> </div> " +
+                            "<div class=\"right\"> <div class=\"chat-message\"> " + realmessage + " </div> " +
+                            "<div class=\"chat-avatars\"><img src=\"../Content/img/icon" + uimage + ".png\" alt=\"头像\" /></div> </div> </div>");
+                    }
+                }
+                //其他人的消息居左显示
+                else {
+                    if (realtype == "#doc#") {
+                        $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                            "<div class=\"author-name\"><small class=\"chat-date\">" + realname + "-" + getTime() + "</small> </div> " +
+                            "<div class=\"left\"> <div class=\"chat-avatars\"><img src=\"../Content/img/icon" + uimage+".png\" alt=\"头像\" /></div> " +
+                            " <div class=\"chat-message\"> " + realmessage + " </div> </div> </div>");
+                    }
+                    else if (realtype == "#pic#") {
+                        $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                            "<div class=\"author-name\"><small class=\"chat-date\">" + realname + "-" + getTime() + "</small > </div > " +
+                            "<div class=\"left\"> <div class=\"chat-avatars\"><img src=\"../Content/img/icon" + uimage + ".png\" alt=\"头像\" /></div> " +
+                            " <div class=\"chat-message\"><img src=" + realmessage + "></div> </div> </div>");
+                    }
+                    else {
+                        $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                            "<div class=\"author-name\"><small class=\"chat-date\">" + realname + "-" + getTime() + "</small> </div> " +
+                            "<div class=\"left\"> <div class=\"chat-avatars\"><img src=\"../Content/img/icon" + uimage + ".png\" alt=\"头像\" /></div> " +
+                            " <div class=\"chat-message\"> " + realmessage + " </div> </div> </div>");
+                    }
+                    //有别人的新消息时进行提醒
+                    var audio = document.getElementById("tips_Music");
+                    audio.play();
+                    messageCount += 1;
+                    document.getElementById("chat-message-num-header").innerHTML = messageCount;
+                    //document.getElementById("message-num-header").innerHTML = messageCount;
+                }
+
+                //聊天框默认最底部
+                $(document).ready(function () {
+                    $(".chatBox-content-demo").scrollTop($(".chatBox-content-demo")[0].scrollHeight);
+                });
+            })
+        };
+        //自动更新房间列表
+        chat.client.getRoomlist = function (data) {
+            if (data) {
+                var jsondata = $.parseJSON(data);
+                //添加前先清除一次RoomImage
+                $(".chatBox-list").html("");
+                for (var i = 0; i < jsondata.length; i++) {
+                    var htmlMenuList = "<div class=\"chat-list-people\" roomname=\"" + jsondata[i].RoomName + "\">" +
+                        " <div> <img src=\"../Content/img/group" + jsondata[i].RoomImage + ".png\" alt=\"头像\" /> </div>" +
+                        " <div class=\"chat-name\"> <p>" + jsondata[i].RoomName + "</p> </div>" +
+                        " <div class=\"message-group\" id=\"" + jsondata[i].RoomName + "-message-group\" onclick=\"userAddgroup(this)\">&nbsp;&nbsp;加入</div> </div >";
+                    $(".chatBox-list").append(htmlMenuList);
+                }
+            }
+        };
+        //设定房间号
+        chat.client.joinRoom = function (roomname) {
+            var html = "<div class=\"chatBox-content-demo\" id=\"" + roomname + "\"> </div>";
+            $(".chatBox-content").html(html);
+            screenFuc();
+        };
+
+        //#endregion
+
+        //#region 服务端所有动作
+        //输入要使用的用户名
+        $('#displayname').val(prompt('请输入您的用户名:', ''));
+
+        //开始连接服务器并传输自己想要发送的内容
+        $.connection.hub.start().done(function () {
+            //添加默认创建群的方式
+            //chat.server.createRoom("系统默认创建组");
+        });
+
+        //发送消息点击事件
+        $('#chat-fasong').click(function () {
+            messageContent = $(".div-textarea").html().replace(/[\n\r]/g, '<br>');
+            messageType = "doc";
+            sendAllclassmessage(messageType, messageContent);
+        });
+
+        //传送消息主要方法
+        function sendAllclassmessage(type, text) {
+            userName = $('#displayname').val();
+            if (text != "") {
+                //调用服务器端集线器的Send方法
+                chat.server.sendMessage(roomName, "#" + type + "#" + text + "#" + $('#displayname').val() + "*" + userImage);
+                //聊天框默认最底部
+                $(document).ready(function () {
+                    $(".chatBox-content-demo").scrollTop($(".chatBox-content-demo")[0].scrollHeight);
+                });
+
+                //发送后清空输入框
+                $(".div-textarea").html("");
+                //聚焦聊天输入框
+                $(".div-textarea").focus();
+            }
+        };
+        //#endregion
+        //进入房间
+        $('.chatBox-info').on('click',".chat-list-people", function () {
+              //消息提示归零
+             document.getElementById("chat-message-num-header").innerHTML = 0;
+                    messageCount = 0;
+                    var n = $(this).index();
+                    $(".chatBox-head-one").toggle();
+                    $(".chatBox-head-two").toggle();
+                    $(".chatBox-list").fadeToggle();
+                    $(".chatBox-kuang").fadeToggle();
+
+              //传名字
+             $(".ChatInfoName").text($(this).children(".chat-name").children("p").eq(0).html());
+             //传头像
+            $(".ChatInfoHead>img").attr("src", $(this).children().eq(0).children("img").attr("src"));
+            //加载历史消息
+            var enterRoomName = $(".chat-list-people").attr("roomname");
+
+            //聊天框默认最底部
+            $(document).ready(function () {
+            $(".chatBox-content-demo").scrollTop($(".chatBox-content-demo")[0].scrollHeight);
+             });
+        });
+
+        //发送表情
+        $("#chat-biaoqing").click(function () {
+            $(".biaoqing-photo").toggle();
+        });
+        $(document).click(function () {
+            $(".biaoqing-photo").css("display", "none");
+        });
+        $("#chat-biaoqing").click(function (event) {
+            event.stopPropagation();//阻止事件
+        });
+
+        $(".emoji-picker-image").each(function () {
+            $(this).click(function () {
+                messageType = "emo";
+                messageContent = $(this).parent().html();
+                //发送后关闭表情框
+                $(".biaoqing-photo").toggle();
+                sendAllclassmessage(messageType, messageContent);
+            })
+        });
+
+        //      发送图片
+        function selectImg(pic) {
+            if (!pic.files || !pic.files[0]) {
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                var images = evt.target.result;
+                messageType = "pic";
+                messageContent = images;
+                sendAllclassmessage(messageType, messageContent);
+            };
+            reader.readAsDataURL(pic.files[0]);
+        };
+        //保存聊天记录
+        $("#chat-close-menu-save").click(function () {
+            var scrollHeight = $('.chatBox-content-demo').prop("scrollHeight");
+            var scrollWidth = $('.chatBox-content-demo').prop("scrollWidth");
+            html2canvas(document.querySelector(".chatBox-content-demo"), {
+                useCORS: true,
+                scale: 3,
+                height: $(".chatBox-content-demo")[0].scrollHeight,
+                width: scrollWidth,
+                windowWidth: scrollWidth,
+                windowHeight: $(".chatBox-content-demo")[0].scrollHeight,
+                x: 0,
+                y: window.pageYOffset
+            }).then(function (canvas) {
+                var imgData = canvas.toDataURL();
+                var fileName = getTime() + "聊天截图.png";
+                saveFile(imgData, fileName);
+                });
+            $("#chat-close-menu-chat").css("visibility", "hidden");
+        });
+        //删除缓存文件
+        $("#chat-close-menu-del").click(function () {
+            $.ajax({
+                url: '/Home/DelCache', /*调用后台缓存清除服务*/
+                type: 'get',
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    if (data == true) {
+                        console.log("缓存清除成功!");
+                    }
+                    else {
+                        console.log("缓存清除失败！：" + data);
+                    }
+                }
+            });
+            $("#chat-close-menu-chat").css("visibility", "hidden");
+        });
+
+        //退出群聊
+        $("#chat-close-menu-exit").click(function () {
+            $("#chat-close-menu-chat").css("visibility", "hidden");
+            var exitRoomName = $(".chatBox-content-demo").attr("id");
+            RemoveRoom(exitRoomName);
+            $(".chat-return").click();
+            $("#" + exitRoomName + "-message-group").css("visibility", "visible");
+        });
+
+        //发送截图
+        $("#chat-jietu").click(function () {
+            html2canvas(document.querySelector(".chatBox"), { useCORS: true }).then(function (canvas) {
+                var imgData = canvas.toDataURL();
+                messageType = "pic";
+                //保存图片并发送
+                sendAllclassmessage(messageType, imgData);
+                var fileName = getTime() + ".png";
+                saveFile(imgData, fileName);
+            });
+        });
+        //保存图片公用方法
+        function saveFile(data, filename) {
+            var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+            save_link.href = data;
+            save_link.download = filename;
+
+            var event = document.createEvent('MouseEvents');
+            event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+            save_link.dispatchEvent(event);
+        };
+        //发送定位
+        getLocation();
+        $("#chat-dingwei").click(function () {
+            messageType = "doc";
+            messageContent = "<a href=\"https://map.baidu.com/search/" + xLocation + "%2C" + yLocation + "\" target=\"_blank\"><i class=\"iconfont icon-diquguanli\" style=\"cursor:pointer\" title=\"点击查看位置\"></i></a><br/>" + vLocation + "<br/>" + "点&uarr;查看位置&nbsp;&Ograve;&omega;&Oacute;！";
+            sendAllclassmessage(messageType, messageContent);
+        });
+        //获取当前位置并发送
+        function getLocation() {
+            // 百度地图API功能
+            var map = new BMap.Map("allmap");
+            var point = new BMap.Point(108.95, 34.27);
+            map.centerAndZoom(point, 12);
+            map.enableScrollWheelZoom();//启动鼠标滚轮缩放地图
+            map.enableKeyboard();//启动键盘操作
+
+            var geolocation = new BMap.Geolocation();
+            geolocation.getCurrentPosition(function (r) {
+                //console.log(r.point)
+                if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                    var mk = new BMap.Marker(r.point);
+                    map.addOverlay(mk);//标出所在地
+                    map.panTo(r.point);//地图中心移动
+                    //alert('您的位置：'+r.point.lng+','+r.point.lat);//经纬度
+                    var point = new BMap.Point(r.point.lng, r.point.lat);//用所定位的经纬度查找所在地省市街道等信息
+                    var gc = new BMap.Geocoder();
+                    gc.getLocation(point, function (rs) {
+                        var addComp = rs.addressComponents; //console.log(rs.address);//地址信息
+                        //位置信息
+                        vLocation = rs.address + " [" + r.point.lng + "," + r.point.lat + "]";
+                        xLocation = r.point.lng;
+                        yLocation = r.point.lat;
+                    });
+                } else {
+                    alert('failed' + this.getStatus());
+                }
+            }, { enableHighAccuracy: true });
+
+            //添加点击事件，点击某标记，地图级别变为16,并生成以该标记为中心的地图
+            //获取地名，传到后端查询数据库等等，不展示，不解释，哈哈哈
+            map.addEventListener("click", function (e) {
+                var point = new BMap.Point(e.point.lng, e.point.lat);
+                map.centerAndZoom(point, 16);
+            });
+        };
+        //发送名片
+        $("#chat-mingpian").click(function () {
+            var svisable = $(".mingpian-input").css("visibility");
+            if (svisable == "hidden") {
+                $(".mingpian-input").css("visibility", "visible");
+            }
+            else {
+                $(".mingpian-input").css("visibility", "hidden");
+            }
+        });
+        //取消按钮
+        $("#mingpian-cancel").click(function () {
+            $("#mingpian-input-name").val("");
+            $("#mingpian-input-tel").val("");
+            $("#mingpian-input-com").val("");
+            $(".mingpian-input").css("visibility", "hidden");
+        });
+        //确认发送按钮
+        $("#mingpian-confirm").click(function () {
+            messageType = "doc";
+            messageContent = "<a href=\"\" target=\"_blank\"><i class=\"iconfont icon-wode2\" style=\"cursor:pointer\" title=\"个人名片\"></i></a><br/>"
+                + "姓名：" + $("#mingpian-input-name").val() + "<br/>" +
+                "电话：" + $("#mingpian-input-tel").val() + "<br/>" +
+                "公司：" + $("#mingpian-input-com").val() + "<br/>";
+            $("#mingpian-input-name").val("");
+            $("#mingpian-input-tel").val("");
+            $("#mingpian-input-com").val("");
+            $(".mingpian-input").css("visibility", "hidden");
+            sendAllclassmessage(messageType, messageContent);
+        });
+
+        //发送文件
+        function uploadFiles(para) {
+            if (!para.files || !para.files[0]) {
+                return;
+            }
+            var tempname=@DateTime.Now.ToString("yyyyMMdd");
+            var vname = para.files[0].name;
+            var formData = new FormData();
+            formData.append("file", para.files[0]);
+            formData.append("service", 'App.Passion.UploadFile');
+            $.ajax({
+                url: '/Home/UploadFile', /*调用后台数据上传服务*/
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    if (data == 0 || data == 5) {
+                        console.log("文件上传成功!");
+                        messageType = "doc";
+                        messageContent = "<a href=\"/UpLoadFiles/" + tempname + "/" + vname + "\" target=\"_blank\"><i class=\"iconfont icon-dingdan\" id=\"iconfont-download\" style=\"cursor:pointer\" title=\"点击下载文件\"></i></a><br/>"
+                            + vname + "<br/>" + "点&uarr;保存文件哦&nbsp;&Ograve;&omega;&Oacute;！";
+                        sendAllclassmessage(messageType, messageContent);
+                    }
+                    else {
+                        console.log("文件上传异常：" + data);
+                        messageType = "doc";
+                        sendAllclassmessage(messageType, "文件发送异常,请稍后再试！");
+                    }
+                }
+            });
+            //非常重要,否则发送同一个文件多次时不会触发发送事件,因为触发事件是Onchange(机智)
+            $("#sendFiles").val("");
+        };
+        //创建房间
+        $("#add_Group").click(function () {
+            var svisable = $(".chatBox-addGroup").css("visibility");
+            if (svisable == "hidden") {
+                $(".chatBox-addGroup").css("visibility", "visible");
+            }
+            else {
+                $(".chatBox-addGroup").css("visibility", "hidden");
+            }
+        });
+
+        $("#chatBox-addGroup-confirm").click(function () {
+            roomName = $(".chatBox-addGroup-nametext").html().replace(/[\n\r]/g, '<br>');
+            RoomImgID = GetRandom();
+            $(".chatBox-addGroup").css("visibility", "hidden");
+            $(".chatBox-addGroup-nametext").html("");
+            $(".chatBox-addGroup-memotext").html("");
+            chat.server.createRoom(roomName,RoomImgID);
+        });
+
+        $("#chatBox-addGroup-cancel").click(function () {
+            $(".chatBox-addGroup").css("visibility", "hidden");
+            $(".chatBox-addGroup-nametext").html("");
+            $(".chatBox-addGroup-memotext").html("");
+        });
+
+
+        //移除房间
+        function RemoveRoom(exitRoomName) {
+            chat.server.removeUserFromRoom(exitRoomName);
+        }
+
+        //加入房间
+        function AddRoom(roomname) {
+            chat.server.joinRoom(roomname);
+        };
+
+        //用户添加至某群组
+        function userAddgroup(roomname) {
+            realRoomname = $(roomname).attr("id");
+            roomName = realRoomname.replace("-message-group", "");
+            AddRoom(roomName);
+            $("#" + realRoomname).css("visibility", "hidden");
+        };
+
+        //#endregion
+
+        //#region 公用方法集
+        //获取当前日期
+        function getTime() {     	//获取时间
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth();
+            var day = date.getDate();
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+            //这样写显示时间在1~9会挤占空间；所以要在1~9的数字前补零;
+            if (hour < 10) {
+                hour = '0' + hour;
+            }
+            if (minute < 10) {
+                minute = '0' + minute;
+            }
+            if (second < 10) {
+                second = '0' + second;
+            }
+            var time = year + '-' + month + '-' + day + " " + hour + ':' + minute + ':' + second;
+            return time;
+        }
+
+        //根据屏幕大小设置聊天框布局
+        screenFuc();
+        function screenFuc() {
+            var topHeight = $(".chatBox-head").innerHeight();//聊天头部高度
+            //屏幕小于768px时候,布局change
+            var winWidth = $(window).innerWidth();
+            if (winWidth <= 768) {
+                var totalHeight = $(window).height(); //页面整体高度
+                $(".chatBox-info").css("height", totalHeight - topHeight);
+                var infoHeight = $(".chatBox-info").innerHeight();//聊天头部以下高度
+                //中间内容高度
+                $(".chatBox-content").css("height", infoHeight - 46);
+                $(".chatBox-content-demo").css("height", infoHeight - 46);
+
+                $(".chatBox-list").css("height", totalHeight - topHeight);
+                $(".chatBox-kuang").css("height", totalHeight - topHeight);
+                $(".div-textarea").css("width", winWidth - 106);
+            } else {
+                $(".chatBox-info").css("height", "100%");
+                $(".chatBox-content").css("height", "68%");
+                $(".chatBox-content-demo").css("height", "100%");
+                $(".chatBox-list").css("height", "100%");
+                $(".chatBox-kuang").css("height", "100%");
+                $(".div-textarea").css("width", "100%");
+            }
+        }
+        (window.onresize = function () {
+            screenFuc();
+        })();
+
+        //定义组合键操作触发事件
+        document.onkeydown = function (e) {
+
+            //#region Ctrl+Enter出发发送事件
+            if (e.ctrlKey && e.keyCode == 13) {
+                $('#chat-fasong').click();
+            }
+            //#endregion
+
+            //#region 禁用F12快捷键
+            //防止F12剽窃
+            //if (e.keyCode == 123) {
+            //    event.keyCode = 0;
+            //    event.returnValue = false;
+            //    alert('禁止剽窃！');
+            //    return false;
+            //}
+            //#endregion
+            //禁用F11
+            if (e.keyCode == 122) {
+                event.keyCode = 0;
+                event.returnValue = false;
+                alert('禁用热键全屏');
+                return false;
+            }
+        };
+
+        //未读信息数量为空时
+        var totalNum = $(".chat-message-num").html();
+        if (totalNum == "") {
+            $(".chat-message-num").css("padding", 0);
+        }
+        $(".message-num").each(function () {
+            var wdNum = $(this).html();
+            if (wdNum == "") {
+                $(this).css("padding", 0);
+            }
+        });
+
+        //打开/关闭聊天框
+        $(".chatBtn").click(function () {
+            $(".chatBox").toggle(10);
+        });
+
+        $("#chat-close-shouye").click(function () {
+            var svisable = $("#chat-close-menu-shouye").css("visibility");
+            if (svisable == "hidden") {
+                $("#chat-close-menu-shouye").css("visibility", "visible");
+            }
+            else {
+                $("#chat-close-menu-shouye").css("visibility", "hidden");
+            }
+        });
+
+        $("#chat-close-chat").click(function () {
+            var svisable = $("#chat-close-menu-chat").css("visibility");
+            if (svisable == "hidden") {
+                $("#chat-close-menu-chat").css("visibility", "visible");
+            }
+            else {
+                $("#chat-close-menu-chat").css("visibility", "hidden");
+            }
+        });
+
+        //返回首页消息列表
+        $(".chat-return").click(function () {
+            //缓存房间聊天信息
+            var roomDivName = $(".chatBox-content-demo").attr("id");
+            var roonDiv = $(".chatBox-content-demo").html();
+
+            //调用消息缓存服务实现不同群之间切换保留消息
+            $.ajax({
+                url: '/Home/saveTempMessage', /*调用消息缓存服务*/
+                type: 'post',
+                data: "{roomName:'" + roomDivName + "',divContent:'" + roonDiv+"'}",
+                contentType: "application/json",
+                dataType:"json",
+                success: function (data) {
+                    if (data == true) {
+                        console.log("该房间消息缓存成功!");
+                    }
+                    else {
+                        console.log("该房间消息缓存失败！：" + data);
+                    }
+                }
+            });
+
+            //返回界面
+            $(".chatBox-head-one").toggle(1);
+            $(".chatBox-head-two").toggle(1);
+            $(".chatBox-list").fadeToggle(1);
+            $(".chatBox-kuang").fadeToggle(1);
+        });
+
+        //禁止右键事件
+        //document.oncontextmenu = function () {
+        //    alert('禁止剽窃！');
+        //    return false;
+        //};
+
+        //首页主菜单点击事件
+        $("#allmessage_Btn").click(function () {
+            //隐藏创建按钮
+            $("#add_Group").css("visibility", "hidden");
+        });
+        $("#group_Btn").click(function () {
+            $("#add_Group").css("visibility", "visible");
+        });
+        $("#personal_Btn").click(function () {
+            $("#add_Group").css("visibility", "hidden");
+        });
+        //右边扩展菜单事件
+        //最小化按钮
+        $("#chat-close-menu-min").click(function () {
+            $(".chatBox").toggle(10);
+            $("#chat-close-menu-shouye").css("visibility", "hidden");
+        });
+        //退出网页
+        $("#chat-close-menu-close").click(function () {
+            window.close();
+        });
+        //刷新列表
+        $("#chat-close-menu-freshlist").click(function () {
+            location.reload();
+        });
+        //手动切换夜间模式&白天模式切换
+        $("#chat-close-menu-theme").click(function () {
+            $("#chat-close-menu-shouye").css("visibility", "hidden");
+            var fullFlag = $(".chatBtn").css("background-color");
+            //切换成夜间模式
+            if (fullFlag == "rgb(26, 160, 95)") {
+                nightTheme();
+            }
+            //还原成白天模式
+            else {
+                dayTheme();
+            }
+        });
+        //白天模式
+        function dayTheme() {
+            //消息按钮
+            $(".chatBtn").css("background", "rgb(26, 160, 95)");
+            $(".chatBtn").css("color", "#FFFFFF");
+            //页头
+            $(".chatBox-head").css("background", "#2DBD60");
+            $(".chatBox-head").css("color", "#FFFFFF");
+            $("#menu_List").css("background", "#179F5D");
+            $("#menu_List").css("color", "#FFFFFF");
+            $("#add_Group").css("color", "#FFFFFF");
+            $(".chat-close").css("color", "#FFFFFF");
+            $(".chat-close-menu").css("color", "#FFFFFF");
+            $(".message-group").css("background", "#2DBD60");
+            $(".message-group").css("color", "#FFFFFF");
+            $(".chat-return").css("color", "#FFFFFF");
+            $(".chatBox-addGroup-title").css("background", "#2DBD60");
+            $(".chatBox-addGroup").css("color", "#FFFFFF");
+
+            //首页列表内容
+            $(".chatBox-info").css("background", "#FFFFFF");
+            $(".chatBox-info").css("color", "#0D0D0D");
+            $(".div-textarea").css("background", "#FFFFFF");
+            $(".biaoqing-photo").css("background", "#FFFFFF");
+            $(".mingpian-input").css("background", "#FFFFFF");
+            $(".mingpian-input").css("color", "#000000");
+        };
+        //夜间模式
+        function nightTheme() {
+            //消息按钮
+            $(".chatBtn").css("background", "#132D40");
+            $(".chatBtn").css("color", "#38DECF");
+            //页头
+            $(".chatBox-head").css("background", "#132D40");
+            $(".chatBox-head").css("color", "#38DECF");
+            $("#menu_List").css("background", "#0C1A2D");
+            $("#menu_List").css("color", "#38DECF");
+            $("#add_Group").css("color", "#38DECF");
+            $(".chat-close").css("color", "#38DECF");
+            $(".chat-close-menu").css("color", "#38DECF");
+            $(".message-group").css("background", "#132D40");
+            $(".message-group").css("color", "#38DECF");
+            $(".chat-return").css("color", "#38DECF");
+            $(".chatBox-addGroup-title").css("background", "#132D40");
+            $(".chatBox-addGroup").css("color", "#38DECF");
+
+            //首页列表内容
+            $(".chatBox-info").css("background", "#323232");
+            $(".chatBox-info").css("color", "#38DECF");
+            $(".div-textarea").css("background", "#323232");
+            $(".biaoqing-photo").css("background", "#323232");
+            $(".mingpian-input").css("background", "#323232");
+            $(".mingpian-input").css("color", "#38DECF");
+
+        }
+        //根据一天时间段自己切换主题
+        adaptTheme();
+        function adaptTheme() {
+            var date = new Date();
+            var hours = date.getHours();
+            if (hours > 7 && hours < 19) {
+                dayTheme();
+            }
+            else {
+                nightTheme();
+            }
+            //生成用户头像ID
+            userImage = GetRandom();
+        };
+
+        //全屏模式
+        $("#chat-close-menu-fullscreen").click(function () {
+            $(".chat-close-menu").css("visibility", "hidden");
+            $(".div-textarea").css("height", "230%");
+            $(".chatBox-send-tool").css("right", "2.1%");
+            $(".chatBox-send-tool").css("bottom", "29.3%");
+            $(".biaoqing-photo").css("left", "82%");
+            $(".biaoqing-photo").css("top", "-405%");
+            var content = $(".chatBox");
+            fullScreen(content[0]);
+        });
+        //退出全屏
+        $("#chat-close-menu-huanyuan").click(function () {
+            $(".chat-close").click();
+            $(".div-textarea").css("height", "70%");
+            $(".chatBox-send-tool").css("right", "5%");
+            $(".chatBox-send-tool").css("bottom", "26.5%");
+            $(".biaoqing-photo").css("left", "61%");
+            $(".biaoqing-photo").css("top", "-245%");
+            $(".chat-close-menu").css("visibility", "hidden");
+            exitFullScreen();
+        });
+        //全屏公用方法
+        function fullScreen(el) {
+            var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullScreen,
+                wscript;
+            if (typeof rfs != "undefined" && rfs) {
+                rfs.call(el);
+                return;
+            }
+            if (typeof window.ActiveXObject != "undefined") {
+                wscript = new ActiveXObject("WScript.Shell");
+                if (wscript) {
+                    wscript.SendKeys("{F11}");
+                }
+            }
+        }
+        function exitFullScreen(el) {
+            var el = document,
+                cfs = el.cancelFullScreen || el.webkitCancelFullScreen || el.mozCancelFullScreen || el.exitFullScreen,
+                wscript;
+            if (typeof cfs != "undefined" && cfs) {
+                cfs.call(el);
+                return;
+            }
+            if (typeof window.ActiveXObject != "undefined") {
+                wscript = new ActiveXObject("WScript.Shell");
+                if (wscript != null) {
+                    wscript.SendKeys("{F11}");
+                }
+            }
+        }
+
+        function fullscreen() {
+            return document.fullscreen ||
+                document.webkitIsFullScreen ||
+                document.mozFullScreen ||
+                false;
+        }
+
+        //浏览器关闭触发事件
+        window.onbeforeunload = windowOnBeforeUnload;//关闭页面触发事件
+        function windowOnBeforeUnload() {
+            //清除缓存
+            $("#chat-close-menu-del").click();
+        };
+
+        //生成随机数
+        function GetRandom() {
+            var x = 10;
+            var y = 1;//随意调数字，现在是1-10以内的随机数
+            var rand = parseInt(Math.random() * (x - y + 1) + y);
+            return rand;
+        };
+     //#endregion
+
+    </script>
+}
